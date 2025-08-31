@@ -1,0 +1,35 @@
+.login-wrapper {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, 0.20), transparent 60%),
+    radial-gradient(1000px 500px at 110% 110%, rgba(236, 72, 153, 0.18), transparent 60%),
+    linear-gradient(180deg, #0f172a 0%, #111827 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+}
+
+.login-header { display: grid; gap: 4px; }
+
+.brand-avatar {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white !important;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.login-form { display: grid; gap: 16px; margin-top: 8px; }
+.full-width { width: 100%; }
+.btn-login { height: 44px; font-weight: 600; }
+
+.error-box { margin: 4px 0 8px; }
+.error-text {
+  display: flex; align-items: center; gap: 8px; color: #ef4444;
+}

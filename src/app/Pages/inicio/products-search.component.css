@@ -1,0 +1,109 @@
+:host { display: block; }
+
+.soft-blue {
+  border-radius: 18px;
+  background: #f7fbff;
+  border: 1px solid #e2ecff;
+}
+
+.soft-header {
+  background: linear-gradient(180deg, #eef6ff, #f7fbff);
+  border-bottom: 1px solid #dbeafe;
+}
+.title { color: #0f3d6e; margin: 0; }
+.subtitle { color: #3a6ea5; }
+
+.filters-bar {
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 12px 0 16px;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr auto auto;
+  gap: 12px;
+  align-items: end;
+}
+.w-full { width: 100%; }
+
+.opt-cat img {
+  width: 20px; height: 20px; border-radius: 4px; object-fit: cover;
+  border: 1px solid #cfe1ff;
+}
+
+.btn-light {
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+.btn-light:hover { background: #e8f0ff; }
+
+.btn-primary-soft {
+  box-shadow: 0 2px 8px rgba(37, 99, 235, .15);
+}
+
+.soft-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.soft-table .mat-mdc-header-row {
+  background: #f0f7ff;
+}
+.soft-table .mat-mdc-header-cell {
+  color: #0f3d6e;
+  border-bottom: 1px solid #dbeafe;
+}
+.soft-table .mat-mdc-row:hover {
+  background: rgba(59, 130, 246, .06);
+}
+.soft-table .mat-mdc-cell {
+  border-bottom: 1px solid #eef2ff;
+}
+
+.thumb {
+  width: 48px; height: 48px; object-fit: cover; border-radius: 10px;
+  border: 1px solid #cfe1ff;
+}
+
+.error-box {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-bottom: 12px;
+}
+
+.loading { padding: 12px; display: flex; gap: 8px; align-items: center; opacity: .9; }
+.no-results { padding: 12px; color: #0f3d6e; }
+
+.soft-paginator {
+  background: #f8fbff;
+  border: 1px solid #e6efff;
+  border-radius: 10px;
+  margin-top: 12px;
+  padding-left: 6px;
+}
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-new {
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  background: #eef6ff;
+}
+.btn-new:hover { background: #e6f0ff; }
+
+.btn-logout {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+.btn-logout:hover { background: #fff1f2; }
+

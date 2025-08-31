@@ -1,0 +1,135 @@
+<mat-card class="card-contenedor soft-blue mat-elevation-z4">
+  <mat-card-header class="soft-header header-wrap">
+    <div class="titles">
+      <mat-card-title>
+        <h2 class="title">
+          <ng-container *ngIf="isEdit; else createT">✏️ Editar producto</ng-container>
+          <ng-template #createT>🆕 Crear nuevo producto</ng-template>
+        </h2>
+      </mat-card-title>
+      <mat-card-subtitle class="subtitle">
+        <ng-container *ngIf="isEdit; else createS">Actualiza los datos del producto</ng-container>
+        <ng-template #createS>Completa los campos y visualiza la categoría seleccionada</ng-template>
+      </mat-card-subtitle>
+    </div>
+
+    <div class="header-actions">
+      <button mat-stroked-button type="button" (click)="cancelar()" class="btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        Volver
+      </button>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid" autocomplete="off">
+      <div class="form-side">
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Nombre del producto *</mat-label>
+          <mat-icon matPrefix>shopping_bag</mat-icon>
+          <input matInput formControlName="name" placeholder="Ej: Teclado mecánico" />
+          <mat-hint>Entre 3 y 80 caracteres</mat-hint>
+          <mat-error *ngIf="form.get('name')?.hasError('required')">El nombre es obligatorio</mat-error>
+          <mat-error *ngIf="form.get('name')?.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+          <mat-error *ngIf="form.get('name')?.hasError('maxlength')">Máximo 80 caracteres</mat-error>
+          <mat-error *ngIf="form.get('name')?.hasError('whitespace')">No puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Categoría *</mat-label>
+          <mat-icon matPrefix>category</mat-icon>
+          <mat-select formControlName="categoryId" panelClass="select-panel">
+            <mat-option *ngFor="let c of categorias" [value]="c.id">
+              <span class="opt-cat">
+                <img [src]="c.photoUrl" (error)="onImgError($event)" alt="">
+                {{ c.name }}
+              </span>
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('categoryId')?.hasError('required')">Selecciona una categoría</mat-error>
+        </mat-form-field>
+
+        <div class="two-cols">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Precio *</mat-label>
+            <mat-icon matPrefix>sell</mat-icon>
+            <input matInput type="number" formControlName="price" min="0" step="0.01" placeholder="0.00" />
+            <span matSuffix class="suffix-chip">Precio</span>
+            <mat-error *ngIf="form.get('price')?.hasError('required')">El precio es obligatorio</mat-error>
+            <mat-error *ngIf="form.get('price')?.hasError('min')">Debe ser ≥ 0</mat-error>
+            <mat-error *ngIf="form.get('price')?.hasError('max')">Demasiado alto</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Stock *</mat-label>
+            <mat-icon matPrefix>inventory_2</mat-icon>
+            <input matInput type="number" formControlName="stock" min="0" step="1" placeholder="0" />
+            <span matSuffix class="suffix-chip">Unidades</span>
+            <mat-error *ngIf="form.get('stock')?.hasError('required')">El stock es obligatorio</mat-error>
+            <mat-error *ngIf="form.get('stock')?.hasError('min')">Debe ser ≥ 0</mat-error>
+            <mat-error *ngIf="form.get('stock')?.hasError('max')">Demasiado alto</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button mat-stroked-button type="button" (click)="cancelar()" class="btn-light">
+            <mat-icon>close</mat-icon>
+            Cancelar
+          </button>
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading" class="btn-primary-soft">
+            <ng-container *ngIf="!loading; else saving">
+              <mat-icon>{{ isEdit ? 'save' : 'add' }}</mat-icon>
+              {{ isEdit ? 'Guardar cambios' : 'Crear producto' }}
+            </ng-container>
+            <ng-template #saving>
+              <mat-progress-spinner mode="indeterminate" diameter="20"></mat-progress-spinner>
+            </ng-template>
+          </button>
+        </div>
+      </div>
+
+      <div class="preview-side">
+        <div class="preview-card mat-elevation-z2">
+          <div class="preview-img">
+            <img
+              *ngIf="selectedCategory?.photoUrl; else noimg"
+              [src]="selectedCategory?.photoUrl"
+              (error)="onImgError($event)"
+              [alt]="selectedCategory?.name"
+            />
+            <ng-template #noimg>
+              <div class="noimg">
+                <mat-icon>image_search</mat-icon>
+                Sin imagen
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="preview-meta">
+            <div class="preview-title">
+              <mat-icon>category</mat-icon>
+              <span>{{ selectedCategory?.name || 'Selecciona una categoría' }}</span>
+            </div>
+
+            <div class="preview-stats">
+              <div class="chip">
+                <mat-icon>sell</mat-icon>
+                <span>{{ (form.get('price')?.value || 0) | number:'1.2-2' }}</span>
+              </div>
+              <div class="chip">
+                <mat-icon>inventory_2</mat-icon>
+                <span>{{ form.get('stock')?.value || 0 }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="error" class="error-box">
+          <mat-icon>error_outline</mat-icon> {{ error }}
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
